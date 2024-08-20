@@ -1,12 +1,17 @@
 const express = require('express')
-const coordinatorRoute = express()
+const coordinator_route = express()
 
-coordinatorRoute.set('views','./views/coordinator')
 
-coordinatorRoute.get('/login',(req,res)=>{
-    res.render('login')
-})
-coordinatorRoute.get('/',(req,res)=>{
+coordinator_route.set('views','./views/coordinator')
+
+//Controllers
+const authController = require('../controllers/authController')
+
+coordinator_route.get('/login',authController.loadLogin)
+coordinator_route.get('/create-member',authController.loadCreateMember)
+coordinator_route.post('/create-member',authController.createMember)
+
+coordinator_route.get('/',(req,res)=>{
     res.render('homePage')
 })
-module.exports = coordinatorRoute
+module.exports = coordinator_route
