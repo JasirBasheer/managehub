@@ -18,7 +18,7 @@ const coordinatorRoute = require('./routes/routeCoordinator')
 const adminRoute = require('./routes/routeAdmin')
 
 app.use('/',coordinatorRoute)
-// app.use('/admin',adminRoute)
+app.use('/admin',adminRoute)
 
 
 app.listen(port,()=> console.log('http://localhost:3001'))
