@@ -1,5 +1,6 @@
 const Coordinator = require('../model/coordinatorSchema')
 const Member = require('../model/memberSchema')
+const Report = require('../model/reportSchema')
 
 
 
@@ -83,6 +84,11 @@ const createMember = async(req,res)=>{
         });
 
         const saveMember = await member.save();
+
+        let report = new Report({
+            memberId:saveMember._id
+        })
+        await report.save()
 
 
         
