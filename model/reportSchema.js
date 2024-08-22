@@ -5,6 +5,12 @@ const reportSchema =new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
     },
+    name:{
+        type:String
+    },
+    batch:{
+        type:String
+    },
     attendence:[{
         date:{
             type: Date,
@@ -12,12 +18,21 @@ const reportSchema =new mongoose.Schema({
         isPresent:{
             type:Boolean
         },
-        isAbsent:{
-            type:Boolean
+        participation:{
+            type:String,
+            enum:['Very Active','Not Active','Average']
+        }
+    }],
+    audioTask:[{
+        date:{
+            type:Date,
+        },
+        task:{
+            type:String,
+            enum:['Done','Not-Done']
         }
 
-
-    }],
+    }]
 
 })
 

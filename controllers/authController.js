@@ -13,6 +13,16 @@ const loadLogin = async(req,res)=>{
     }
 }
 
+const loadMembers = async(req,res)=>{
+    try {
+        const members = await Member.find({})
+        res.render('viewMembers',{members})
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
 const loadCreateCoordinator = async(req,res)=>{
     try {
         res.render('createCoordinator')
@@ -86,7 +96,9 @@ const createMember = async(req,res)=>{
         const saveMember = await member.save();
 
         let report = new Report({
-            memberId:saveMember._id
+            memberId:saveMember._id,
+            name:saveMember.name,
+            batch:saveMember.batch
         })
         await report.save()
 
@@ -109,6 +121,7 @@ module.exports={
     loadCreateMember,
     createCoordinator,
     createMember,
+    loadMembers,
     
 
 }

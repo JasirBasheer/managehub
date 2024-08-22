@@ -1,0 +1,102 @@
+<%- include('../layouts/coordinator/header')%>
+
+
+    
+
+
+<div class="main-content">
+    <div class="section">
+        <div class="section-body">
+            <div class="col-10">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Members</h4>
+                    <div class="card-header-form">
+                      <form>
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search">
+                          <div class="input-group-btn">
+                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <tbody><tr>
+                          <th class="text-center">
+                            
+                          </th>
+                          <th>Name</th>
+                          <th>Phone</th>
+                          <th>Assigh Date</th>
+                          <th>Due Date</th>
+                          <th>Priority</th>
+                          <th>Action</th>
+                        </tr>
+
+                        <% members.forEach(member => { %>
+
+                            <tr>
+                                <td class="p-0 text-center">
+                                 
+                                </td>
+                                <td><%= member.name %></td>
+                                <td class="text-truncate">
+                                 232232323
+                                </td>
+                                <td class="align-middle">
+                                  <div class="progress-text">50%</div>
+                                  <div class="progress" data-height="6" style="height: 6px;">
+                                    <div class="progress-bar bg-success" data-width="50%" style="width: 50%;"></div>
+                                  </div>
+                                </td>
+                                <td>2018-01-20</td>
+                                <td>
+                                  <div class="badge badge-success">Low</div>
+                                </td>
+                                <td><a href="#" class="btn btn-outline-primary">Detail</a></td>
+                              </tr>
+                         
+                        <% }) %>
+                        
+                        
+                      </tbody></table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+    <!-- General JS Scripts -->
+    <script src="/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="/assets/bundles/chartjs/chart.min.js"></script>
+    <script src="/assets/bundles/jquery.sparkline.min.js"></script>
+    <script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <script src="/assets/bundles/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.indonesia.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/widget-chart.js"></script>
+    <!-- Template JS File -->
+    <script src="/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/assets/js/custom.js"></script>
+  </body>
+  
+  
+  <!-- widget-chart.html  21 Nov 2019 03:50:03 GMT -->
+  </html>
