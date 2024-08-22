@@ -17,8 +17,15 @@ const coordinatorSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    image:{
+        type:String
+    },
     password:{
         type:String
+    },
+    isExpire:{
+        type:Boolean,
+        default:false
     }
     
 })
