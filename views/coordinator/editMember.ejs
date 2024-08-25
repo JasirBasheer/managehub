@@ -1,0 +1,87 @@
+<%- include('../layouts/coordinator/header')%>
+<style>
+p{
+    margin: 0;
+}
+html, body {
+    height: 95%;
+    margin: 0;
+    padding: 0;
+}
+#app, .main-wrapper {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+        .login-form {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+</style>
+<body>
+    
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        
+        
+        <div class="container">
+            <section class="section col-lg-6 ">
+
+            
+              <div class="col-12 d-flex justify-content-center align-items-center">
+
+                    <div class="login-form col-12 p-4">
+                        <h2 class="text-center mt-4 mb-2">Login</h2>
+                        <form action="/edit-member" method="post">
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Name</label>
+                                <input type="text" value="<%= member.name  %>" class="form-control" id="Name" name="Name" placeholder="Enter your Name">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" value="<%= member.email  %>" class="form-control" id="Email" name="Email" placeholder="Enter your email">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Phone</label>
+                                <input type="Number" value="<%= member.phone  %>" class="form-control" id="Phone" name="Phone" placeholder="Enter your email">
+                            </div>
+                            <input type="hidden" name="id" value="<%= member._id %>" id="">
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Batch</label>
+                                <input type="text" value="<%= member.batch  %>" class="form-control" id="Batch" name="Batch" placeholder="Enter your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mb-5">Edit Member</button>
+                        </form>
+                    </div>
+
+              </div>
+            
+          </section>
+          
+        </div>
+        
+      </div>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <!-- Page Specific JS File -->
+    <!-- Template JS File -->
+    <script src="/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/assets/js/custom.js"></script>
+  </body>

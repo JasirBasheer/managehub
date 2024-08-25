@@ -1,0 +1,132 @@
+<%- include('../layouts/coordinator/header')%>
+
+<style>
+    input[type="date"] {
+        border: none;         
+        outline: none;
+        background-color: transparent; 
+        font-size: 16px;
+        padding: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="main-content">
+    <div class="section">
+        <div class="section-body">
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Attendance</h4>
+                        <input type="date" name="date" id="dateInput">
+                        <div class="card-header-form">
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <form id="attendanceForm" action="/submit-attendance" method="POST">
+                                <!-- Hidden input to store the date value -->
+                                <input type="hidden" name="attendanceDate" id="attendanceDate">
+
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Attendance</th>
+                                            <th>Participation</th>
+                                        </tr>
+
+                                        <% members.forEach((member, index) => { %>
+                                            <tr>
+                                                <td class="p-0 text-center"></td>
+                                                <td>
+                                                    <%= member.name %>
+                                                    <input type="hidden" name="members[<%= index %>][id]" value="<%= member._id %>">
+                                                    <input type="hidden" name="members[<%= index %>][name]" value="<%= member.name %>">
+                                                </td>
+                                                <td class="text-truncate">
+                                                    <%= member.phone %>
+                                                    <input type="hidden" name="members[<%= index %>][phone]" value="<%= member.phone %>">
+                                                </td>
+                                                <td class="align-middle">
+                                                    <input type="radio" name="members[<%= index %>][attendance]" value="present"> Present
+                                                    <input type="radio" name="members[<%= index %>][attendance]" value="absent"> Absent
+                                                </td>
+                                                <td>
+                                                    <input type="range" id="activityRange<%= index %>" name="members[<%= index %>][participation]" min="1" max="3" value="2" step="0.1" style="width: 50%; cursor: pointer;">
+                                                    <br>
+                                                    <span id="rangeValue<%= index %>" style="font-weight: bold; transition: color 0.3s ease;">Active</span>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                                <div class="card-footer text-right">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- General JS Scripts -->
+<script src="/assets/js/app.min.js"></script>
+<!-- JS Libraies -->
+<script src="/assets/bundles/chartjs/chart.min.js"></script>
+<script src="/assets/bundles/jquery.sparkline.min.js"></script>
+<script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/bundles/jqvmap/dist/jquery.vmap.min.js"></script>
+<script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.indonesia.js"></script>
+<!-- Page Specific JS File -->
+<script src="/assets/js/page/widget-chart.js"></script>
+<!-- Template JS File -->
+<script src="/assets/js/scripts.js"></script>
+<!-- Custom JS File -->
+<script src="/assets/js/custom.js"></script>
+<script>
+    function setTodayAsDefaultDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); 
+        const day = String(today.getDate()).padStart(2, '0');
+        const todayDate = `${year}-${month}-${day}`;
+        document.getElementById('dateInput').value = todayDate;
+        document.getElementById('attendanceDate').value = todayDate;
+    }
+
+    setTodayAsDefaultDate();
+
+    document.getElementById('dateInput').addEventListener('change', function() {
+        document.getElementById('attendanceDate').value = this.value;
+    });
+
+    <% members.forEach((member, index) => { %>
+        const rangeInput<%= index %> = document.getElementById("activityRange<%= index %>");
+        const rangeValue<%= index %> = document.getElementById("rangeValue<%= index %>");
+
+        rangeInput<%= index %>.addEventListener("input", function() {
+            let value = rangeInput<%= index %>.value;
+
+            if (value <= 1.5) {
+                rangeValue<%= index %>.textContent = "Not Active";
+                rangeValue<%= index %>.style.color = "#ff4d4d"; // red
+            } else if (value > 1.5 && value <= 2.5) {
+                rangeValue<%= index %>.textContent = "Active";
+                rangeValue<%= index %>.style.color = "#ffd700"; // yellow
+            } else {
+                rangeValue<%= index %>.textContent = "Very Active";
+                rangeValue<%= index %>.style.color = "#4caf50"; // green
+            }
+        });
+    <% }) %>
+</script>
+
+</body>
+</html>

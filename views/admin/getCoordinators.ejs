@@ -1,0 +1,127 @@
+<%- include('../layouts/admin/header')%>
+
+<div class="main-content" style="min-height: 718px;">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Coordinators</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="text" id="searchInput" placeholder="Search..." class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="sortSelect" class="form-control">
+                                        <option value="name-asc">Sort by Name (A-Z)</option>
+                                        <option value="name-desc">Sort by Name (Z-A)</option>
+                                        <option value="batch-asc">Sort by Batch (Ascending)</option>
+                                        <option value="batch-desc">Sort by Batch (Descending)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <ul id="dropdown-list-content" class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder" style="height: 50em; overflow-y: auto;">
+                                <% coordinators.forEach(coordinator => { %>
+                                    <li class="media">
+                                        <img alt="image" src="<%= coordinator.image %>" class="mr-3 user-img-radious-style user-list-img" width="40">
+                                        <div class="media-body">
+                                            <div class="media-title"><%= coordinator.name %></div>
+                                            <div class="text-job text-muted"><%= coordinator.batch %></div>
+                                        </div>
+                                        <div class="media-progressbar">
+                                            <div class="progress-text"><%= coordinator.progress %></div>
+                                            <div class="progress" data-height="6" style="height: 6px;">
+                                                <div class="progress-bar bg-primary" data-width="<%= coordinator.progress %>" style="width: 40%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="media-cta">
+                                            <a href="#" class="btn btn-outline-primary">Batch Detail</a>
+                                        </div>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <script src="/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="/assets/bundles/chartjs/chart.min.js"></script>
+    <script src="/assets/bundles/jquery.sparkline.min.js"></script>
+    <script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <script src="/assets/bundles/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.indonesia.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/widget-chart.js"></script>
+    <!-- Template JS File -->
+    <script src="/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/assets/js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    function fetchCoordinators() {
+        const search = $('#searchInput').val();
+        const sort = $('#sortSelect').val();
+
+        $.ajax({
+            url: '/admin/getCoordinators',
+            method: 'GET',
+            data: { search, sort },
+            dataType: 'json',
+            success: function(response) {
+                let content = '';
+                response.coordinators.forEach(function(item) {
+                    content += `
+                        <li class="media">
+                            <img alt="image" src="${item.image}" class="mr-3 user-img-radious-style user-list-img" width="40">
+                            <div class="media-body">
+                                <div class="media-title">${item.name}</div>
+                                <div class="text-job text-muted">${item.batch}</div>
+                            </div>
+                            <div class="media-progressbar">
+                                <div class="progress-text">${item.progress}</div>
+                                <div class="progress" data-height="6" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" data-width="${item.progress}" style="width: ${item.progress};"></div>
+                                </div>
+                            </div>
+                            <div class="media-cta">
+                                <a href="#" class="btn btn-outline-primary">Batch Detail</a>
+                            </div>
+                        </li>`;
+                });
+                $('#dropdown-list-content').html(content);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+    $('#searchInput').on('input', function() {
+        fetchCoordinators();
+    });
+
+    $('#sortSelect').on('change', function() {
+        fetchCoordinators();
+    });
+
+    
+    fetchCoordinators();
+});
+</script>
+
+    </body>
+
+
+    <!-- widget-chart.html  21 Nov 2019 03:50:03 GMT -->
+
+    </html>
