@@ -15,7 +15,7 @@ adminRoute.get('/dashboard',adminController.dashboard)
 //coordinators
 adminRoute.get('/addCoordinator',coordinatorController.addCoordinatorPage)
 adminRoute.post('/addCoordinator', upload.single('image'), coordinatorController.addCoordinator)
-adminRoute.get('/getCoordinators',coordinatorController.getCoordinators)
+adminRoute.post('/getCoordinators',coordinatorController.getCoordinators)
 adminRoute.get('/editCoordinator',coordinatorController.editCoordinatorPage)
 adminRoute.patch('/edit-coordinator',upload.single('image'),coordinatorController.editCoordinator)
 
